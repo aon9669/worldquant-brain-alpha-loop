@@ -1,0 +1,67 @@
+# Python / virtualenv
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Backups
+*.bak*
+*.previous.*
+*.pre-*
+
+# Credentials and local env (never commit)
+.env
+.env.*
+!.env.example
+**/.wq_env
+*.pem
+*.key
+*cookie*
+*session*
+*token*
+
+# Per-run outputs, logs, state
+wq_loop/cycles/
+*.log
+*.err
+*.err.txt
+*.out
+*.pid
+*.lock
+wq_loop/llm_usage.jsonl
+wq_loop/runs_log.jsonl
+wq_loop/events.jsonl
+wq_loop/heartbeat.json
+wq_loop/event_state.json
+wq_loop/sync_state.json
+wq_loop/submit_attempts.json
+wq_loop/agy_backoff.json
+wq_loop/lock_guard
+wq_loop/stale_pipeline_lock_*
+submit_state.json
+**/agy.json
+tool/.alpha_agent/
+
+# Alpha results / account data (add deliberately if wanted)
+*.csv
+wq_harness/memory*.jsonl
+wq_harness/alpha_*
+wq_harness/check_*
+wq_harness/sim_*
+wq_harness/submit_*
+wq_harness/presubmit_*
+wq_harness/_*.json
+wq_harness/_*.txt
+wq_harness/*sheet*
+
+# llm-queue runtime data
+llm-queue/inbox/
+llm-queue/running/
+llm-queue/done/
+llm-queue/failed/
+llm-queue/cancel/
+llm-queue/logs/
+llm-queue/heartbeat.json
+
+.DS_Store
+._*

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How WorldQuant BRAIN operates</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:   #f5f5f5;
+      --color-ink:     #2d3142;
+      --color-muted:   #4f5d75;
+      --color-accent:  #bf4520;
+      --font-sans:     'Geist', system-ui, sans-serif;
+      --font-serif:    'Instrument Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .frame { max-width: 1280px; width: 100%; min-width: 0; }
+    .diagram-container { width: 100%; overflow-x: auto; }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--color-ink);
+      margin-bottom: 1.5rem;
+    }
+
+    svg { width: 100%; min-width: 1280px; display: block; }
+    @media print {
+      .diagram-container { overflow-x: visible; }
+      svg { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 1280 1440" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="worldquant-brain-platform-title worldquant-brain-platform-desc"><title id="worldquant-brain-platform-title">How WorldQuant BRAIN operates</title><desc id="worldquant-brain-platform-desc">Researchers design an alpha, simulate it on historical data, refine weak results, pass platform submission checks, and submit it to WorldQuant BRAIN.</desc><defs><marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker></defs><rect width="1280" height="1440" fill="#f5f5f5"/>
+<text x="64" y="56" font-family="'Geist Mono', sans-serif" font-size="14" font-weight="500" fill="#4f5d75" text-anchor="start">WORLDQUANT BRAIN / ALPHA LIFECYCLE</text>
+<text x="64" y="112" font-family="'Instrument Serif', sans-serif" font-size="48" font-weight="400" fill="#2d3142" text-anchor="start">How WorldQuant BRAIN operates</text>
+<text x="64" y="152" font-family="'Geist', sans-serif" font-size="22" font-weight="400" fill="#4f5d75" text-anchor="start">Generate → simulate → check → submit</text>
+<line x1="640" y1="280" x2="640" y2="324" stroke="#4f5d75" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="640" y1="404" x2="640" y2="448" stroke="#4f5d75" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="640" y1="524" x2="640" y2="560" stroke="#4f5d75" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="640" y1="696" x2="640" y2="772" stroke="#4f5d75" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="656" y="724" width="48" height="24" fill="#f5f5f5"/>
+<text x="680" y="740" font-family="'Geist Mono', sans-serif" font-size="14" font-weight="500" fill="#4f5d75" text-anchor="middle">YES</text>
+<line x1="500" y1="628" x2="360" y2="628" stroke="#4f5d75" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="408" y="594" width="48" height="24" fill="#f5f5f5"/>
+<text x="432" y="610" font-family="'Geist Mono', sans-serif" font-size="14" font-weight="500" fill="#4f5d75" text-anchor="middle">NO</text>
+<path d="M 500,860 H 228 Q 220,860 220,852 V 680" fill="none" stroke="#4f5d75" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="412" y="826" width="48" height="24" fill="#f5f5f5"/>
+<text x="436" y="842" font-family="'Geist Mono', sans-serif" font-size="14" font-weight="500" fill="#4f5d75" text-anchor="middle">NO</text>
+<path d="M 80,608 H 56 Q 48,608 48,600 V 240 Q 48,232 56,232 H 440" fill="none" stroke="#4f5d75" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="640" y1="948" x2="640" y2="1032" stroke="#4f5d75" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="656" y="978" width="48" height="24" fill="#f5f5f5"/>
+<text x="680" y="994" font-family="'Geist Mono', sans-serif" font-size="14" font-weight="500" fill="#4f5d75" text-anchor="middle">YES</text>
+<line x1="640" y1="1120" x2="640" y2="1192" stroke="#4f5d75" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="440" y="192" width="400" height="88" rx="6" fill="rgba(79,93,117,0.10)" stroke="#5a6580" stroke-width="1.4"/>
+<text x="640" y="224" font-family="'Geist', sans-serif" font-size="23" font-weight="600" fill="#2d3142" text-anchor="middle">Design / generate an alpha</text>
+<text x="640" y="254" font-family="'Geist', sans-serif" font-size="18" font-weight="400" fill="#4f5d75" text-anchor="middle">FastExpr + simulation settings</text>
+<rect x="440" y="324" width="400" height="80" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.4"/>
+<text x="640" y="356" font-family="'Geist', sans-serif" font-size="23" font-weight="600" fill="#2d3142" text-anchor="middle">Simulate on BRAIN</text>
+<text x="640" y="384" font-family="'Geist', sans-serif" font-size="18" font-weight="400" fill="#4f5d75" text-anchor="middle">In-sample historical backtest</text>
+<rect x="440" y="448" width="400" height="76" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.4"/>
+<text x="640" y="478" font-family="'Geist', sans-serif" font-size="23" font-weight="600" fill="#2d3142" text-anchor="middle">Review results</text>
+<text x="640" y="506" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="middle">Sharpe · Fitness · turnover · returns</text>
+<polygon points="640,560 780,628 640,696 500,628" fill="#ffffff" stroke="#2d3142" stroke-width="1.4"/>
+<text x="640" y="622" font-family="'Geist', sans-serif" font-size="21" font-weight="600" fill="#2d3142" text-anchor="middle">Valid and</text>
+<text x="640" y="650" font-family="'Geist', sans-serif" font-size="21" font-weight="600" fill="#2d3142" text-anchor="middle">promising?</text>
+<rect x="80" y="576" width="280" height="104" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.4"/>
+<text x="220" y="610" font-family="'Geist', sans-serif" font-size="23" font-weight="600" fill="#2d3142" text-anchor="middle">Refine the alpha</text>
+<text x="220" y="640" font-family="'Geist', sans-serif" font-size="18" font-weight="400" fill="#4f5d75" text-anchor="middle">Fix errors or improve</text>
+<text x="220" y="664" font-family="'Geist', sans-serif" font-size="18" font-weight="400" fill="#4f5d75" text-anchor="middle">expression / settings</text>
+<polygon points="640,772 780,860 640,948 500,860" fill="#ffffff" stroke="#2d3142" stroke-width="1.4"/>
+<text x="640" y="840" font-family="'Geist', sans-serif" font-size="21" font-weight="600" fill="#2d3142" text-anchor="middle">All required</text>
+<text x="640" y="868" font-family="'Geist', sans-serif" font-size="21" font-weight="600" fill="#2d3142" text-anchor="middle">submission checks</text>
+<text x="640" y="896" font-family="'Geist', sans-serif" font-size="21" font-weight="600" fill="#2d3142" text-anchor="middle">PASS?</text>
+<rect x="440" y="1032" width="400" height="88" rx="6" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1.4"/>
+<text x="640" y="1070" font-family="'Geist', sans-serif" font-size="26" font-weight="600" fill="#bf4520" text-anchor="middle">Submit the alpha</text>
+<text x="640" y="1100" font-family="'Geist', sans-serif" font-size="18" font-weight="400" fill="#4f5d75" text-anchor="middle">Send to BRAIN for acceptance</text>
+<rect x="440" y="1192" width="400" height="72" rx="20" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1.4"/>
+<text x="640" y="1222" font-family="'Geist', sans-serif" font-size="23" font-weight="600" fill="#2d3142" text-anchor="middle">Submitted</text>
+<text x="640" y="1248" font-family="'Geist', sans-serif" font-size="18" font-weight="400" fill="#4f5d75" text-anchor="middle">Confirm the platform status</text>
+<text x="896" y="206" font-family="'Geist Mono', sans-serif" font-size="14" font-weight="500" fill="#4f5d75" text-anchor="start">SIMULATION SETTINGS</text>
+<text x="896" y="238" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="start">Region · universe · delay</text>
+<text x="896" y="266" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="start">Decay · neutralization · truncation</text>
+<text x="896" y="306" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="start">Typical example:</text>
+<text x="896" y="334" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="start">USA / TOP3000 / Delay 1</text>
+<text x="864" y="768" font-family="'Geist Mono', sans-serif" font-size="14" font-weight="500" fill="#4f5d75" text-anchor="start">PLATFORM SUBMISSION CHECKS</text>
+<text x="864" y="802" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="start">USA Delay-1 examples:</text>
+<text x="864" y="830" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="start">Sharpe ≥ 1.25 · Fitness ≥ 1</text>
+<text x="864" y="858" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="start">Turnover 1–70%</text>
+<text x="864" y="886" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="start">Weight concentration</text>
+<text x="864" y="914" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="start">Sub-universe Sharpe</text>
+<text x="864" y="942" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="start">Self-correlation / redundancy</text>
+<text x="864" y="982" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="start">Applicable thresholds and exceptions</text>
+<text x="864" y="1008" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="start">are determined by BRAIN.</text>
+<text x="896" y="1080" font-family="'Geist', sans-serif" font-size="18" font-weight="600" fill="#4f5d75" text-anchor="start">Daily submit limit reached?</text>
+<text x="896" y="1108" font-family="'Geist', sans-serif" font-size="17" font-weight="400" fill="#4f5d75" text-anchor="start">Defer submission to the next day.</text>
+<line x1="64" y1="1320" x2="1216" y2="1320" stroke="#bfc0c0"/>
+<rect x="64" y="1344" width="28" height="20" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="1.4"/>
+<text x="104" y="1360" font-family="'Geist', sans-serif" font-size="16" font-weight="400" fill="#4f5d75" text-anchor="start">Action</text>
+<polygon points="296,1344 312,1354 296,1364 280,1354" fill="#ffffff" stroke="#2d3142"/>
+<text x="324" y="1360" font-family="'Geist', sans-serif" font-size="16" font-weight="400" fill="#4f5d75" text-anchor="start">Decision · Yes / No</text>
+<rect x="608" y="1344" width="28" height="20" rx="10" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1.4"/>
+<text x="648" y="1360" font-family="'Geist', sans-serif" font-size="16" font-weight="400" fill="#4f5d75" text-anchor="start">Completed submission</text>
+<text x="64" y="1404" font-family="'Geist', sans-serif" font-size="16" font-weight="400" fill="#4f5d75" text-anchor="start">Research workflow overview · Passing a backtest does not guarantee future performance.</text>
+</svg>
+    </div>
+  </div>
+</body>
+</html>

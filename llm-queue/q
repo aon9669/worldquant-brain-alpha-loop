@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+"""q: submit/read llm-queue jobs.
+  q submit --tool agy|claude|codex --model ID [--effort E] (--prompt TEXT | --prompt-file PATH) [--workdir DIR] [--timeout S] [--by NAME] [--wait]
+  q result ID [--wait [--timeout S]]     prints result JSON (output_text, model, exit_code, usage, ...)
+  q status [ID]                         queue summary or one job's state
+  q cancel ID"""
+import argparse, json, os, sys, time, uuid, datetime as dt
+from pathlib import Path
+Q = Path(os.environ.get('LLMQ_HOME', str(Path.home()/'llm-queue')))
+def state(jid):
+    for s in ('done', 'failed', 'running', 'inbox'):
+        if (Q/s/f'{jid}.json').exists(): return s
+    return 'unknown'
+def result(jid, wait=False, timeout=3600):
+    t0 = time.time()
+    while True:
+        for s in ('done', 'failed'):
+            p = Q/s/f'{jid}.result.json'
+            if p.exists(): return json.loads(p.read_text())
+        if not wait or time.time() - t0 > timeout: return dict(id=jid, status=state(jid), error=None if wait is False else 'wait timeout')
+        time.sleep(2)
+def submit(a):
+    jid = dt.datetime.now().strftime('%Y%m%dT%H%M%S') + '-' + uuid.uuid4().hex[:6]
+    job = dict(id=jid, tool=a.tool, model=a.model, effort=a.effort, workdir=a.workdir or str(Path.home()), timeout=a.timeout,
+               created_by=a.by, created_at=dt.datetime.now().astimezone().isoformat(timespec='seconds'))
+    if a.prompt_file: job['prompt_file'] = str(Path(a.prompt_file).resolve())
+    else: job['prompt'] = a.prompt
+    if a.mode: job['mode'] = a.mode
+    tmp = Q/'inbox'/f'.{jid}.tmp'; tmp.write_text(json.dumps(job, indent=1)); os.replace(tmp, Q/'inbox'/f'{jid}.json')
+    return jid
+ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter); sp = ap.add_subparsers(dest='cmd', required=True)
+s = sp.add_parser('submit'); s.add_argument('--tool', required=True, choices=['claude', 'agy', 'codex']); s.add_argument('--model'); s.add_argument('--effort')
+s.add_argument('--prompt'); s.add_argument('--prompt-file'); s.add_argument('--workdir'); s.add_argument('--timeout', type=int, default=900); s.add_argument('--mode')
+s.add_argument('--by', default=os.environ.get('USER', 'unknown')); s.add_argument('--wait', action='store_true')
+r = sp.add_parser('result'); r.add_argument('id'); r.add_argument('--wait', action='store_true'); r.add_argument('--timeout', type=int, default=3600)
+st = sp.add_parser('status'); st.add_argument('id', nargs='?')
+c = sp.add_parser('cancel'); c.add_argument('id')
+a = ap.parse_args()
+if a.cmd == 'submit':
+    if not (a.prompt or a.prompt_file): sys.exit('need --prompt or --prompt-file')
+    jid = submit(a); print(jid) if not a.wait else print(json.dumps({k: v for k, v in result(jid, True, a.timeout + 300).items() if k not in ('stdout', 'stderr')}, indent=1))
+elif a.cmd == 'result': print(json.dumps({k: v for k, v in result(a.id, a.wait, a.timeout).items() if k not in ('stdout', 'stderr')}, indent=1))
+elif a.cmd == 'status':
+    if a.id: print(state(a.id))
+    else:
+        hb = Q/'heartbeat.json'; h = json.loads(hb.read_text()) if hb.exists() else {}
+        print(json.dumps(dict(dispatcher_alive=bool(h) and time.time() - h.get('epoch', 0) < 30, heartbeat=h.get('at'), running=h.get('running'),
+              counts={d: len(list((Q/d).glob('*.json'))) - (len(list((Q/d).glob('*.result.json'))) if d in ('done', 'failed') else 0) for d in ('inbox', 'running', 'done', 'failed')}), indent=1))
+elif a.cmd == 'cancel': (Q/'cancel'/a.id).touch(); print('cancel requested', a.id)
